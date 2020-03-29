@@ -1,17 +1,25 @@
 #define pneumaticslib.h
 #include "Arduino.h"
+#include <ezButton.h>
 #define OPEN 1
 #define CLOSE 0
-
-
+#define DEBUG false // set this to true to output serial prints for debugging
+#define DEBUG_SERIAL if(DEBUG)Serial
+#define BUTTONS false //toggles the buttons
+#define PPUMP 0
+#define NPUMP 1
+#define PVALVE 0
+#define NVALVE 1
+#define EVALVE 2
+ezButton button1(9);  // create ezButton object that attach to pin 6;
+ezButton button2(10);  // create ezButton object that attach to pin 7;
+ezButton button3(11);  // create ezButton object that attach to pin 8;
+ezButton button4(12);
 int pressureInput;
 float pressure;
 const int Valve[3] = {2, 4, 5};
 const int Pump[2] = {3, 6};
-int button1;
-int button2;
-int button3;
-int button4;
+
 
 char valveRead[] = "V";
 char pumpRead[] = "P";
@@ -38,28 +46,38 @@ void initializePins() {
   pinMode(11, INPUT_PULLUP);
   pinMode(12, INPUT_PULLUP);
   pinMode(13,OUTPUT);
-  Serial.begin(9600);
-  
+ 
+   button1.setDebounceTime(25); // set debounce time to 50 milliseconds
+  button2.setDebounceTime(25); // set debounce time to 50 milliseconds
+  button3.setDebounceTime(25); // set debounce time to 50 milliseconds
+ button4.setDebounceTime(25); // set debounce time to 50 milliseconds
+ Serial.begin(9600);
+  DEBUG_SERIAL.println("Initialized Pins");
 }
 
 
 
   //---THIS FUNCTION TURNS ON/OFF A SPECIFIC VALVE
-  void setValve(int number, int position) {
-    //  Serial.println("valve function run");
-    if (position == OPEN) {
+  void setValve(int number, int state) {
+     DEBUG_SERIAL.println("valve function run");
+    if (state == OPEN) {
       digitalWrite(Valve[number], HIGH);
+      
 
     }
 
-    if (position == CLOSE) {
+    if (state == CLOSE) {
       digitalWrite(Valve[number], LOW);
     }
+  //  DEBUG_SERIAL.print("Valve:");
+   // DEBUG_SERIAL.print(number);
+   // DEBUG_SERIAL.print(" state");
+   // DEBUG_SERIAL.println(state);
   }
 
   //---THIS FUNCTION TURNS ON/OFF A SPECIFIC PUMP
   void setPump(int number, int position) {
-    //  Serial.println("pump function run");
+    DEBUG_SERIAL.println("pump function run");
     if (position == OPEN) {
       analogWrite(Pump[number], 200);
       //   Serial.println("pump turn on");
@@ -73,6 +91,7 @@ void initializePins() {
   }
 
   void pressureControl() {
+    
     pressureInput = analogRead(A2);
     float voltage = map(pressureInput, 0, 1023, 0, 5000);
     pressure = 50 * (voltage / 1000) - 125.6;
@@ -143,70 +162,87 @@ void initializePins() {
 
   void inflate()
   {
+    setValve(PVALVE,OPEN);
+    setPump(PPUMP,OPEN);
+    
   }
 
 
   void deflate() {
+    setValve(NVALVE,OPEN);
+    setPump(NPUMP,OPEN);
+    
   }
 
   void exhaust() {
+    setValve(EVALVE,OPEN);
   }
   void closeAll() {
 
   }
 
   void emergencyVent() {
-    setValve(0, 0);
-    setValve(1, 0);
-    setValve(2, 1);
-    setPump(0, 0);
-    setPump(1, 0);
+    setValve(PVALVE, CLOSE);
+    setValve(NVALVE, CLOSE);
+    setValve(EVALVE, OPEN);
+    setPump(PPUMP, CLOSE);
+    setPump(NPUMP, CLOSE);
     digitalWrite(13, HIGH);
     delay(5000);
     digitalWrite(13, LOW);
-    setValve(2, 0);
+    setValve(EVALVE, CLOSE);
 
 
   }
 void buttonRead() {
-  button1 = digitalRead(9);
-  button2 = digitalRead(10);
-  button3 = digitalRead(11);
-  button4 = digitalRead(12);
-  if (button1 == 0);
-  {
-    digitalWrite(2, HIGH);
-    analogWrite(3, 255);
+  
+   button1.loop(); // MUST call the loop() function first
+  button2.loop(); // MUST call the loop() function first
+  button3.loop(); // MUST call the loop() function first
+  button4.loop(); 
+
+
+ //int btn1State = button1.getState();
+ // int btn2State = button2.getState();
+ // int btn3State = button3.getState();
+ // int btn4State = button4.getState();
+// Serial.print("button 1 state: ");
+// Serial.println(btn1State);
+//Serial.print("button 2 state: ");
+// Serial.println(btn2State);
+// Serial.print("button 3 state: ");
+ //Serial.println(btn3State);
+ // Serial.print("button 4 state: ");
+ //Serial.println(btn4State);
+
+  if(button1.isPressed()){
+    DEBUG_SERIAL.println("The button 1 is pressed");
+setValve(PVALVE,OPEN);
+setPump(PPUMP,OPEN);
   }
-  if (button1 == 1)
-  {
-    digitalWrite(2, LOW);
-    analogWrite(3, 0);
+  if(button1.isReleased()){
+    DEBUG_SERIAL.println("The button 1 is released");
+setValve(PVALVE,CLOSE);
+setPump(PPUMP,CLOSE);
+  }
+  if(button2.isPressed()){
+    DEBUG_SERIAL.println("The button 2 is pressed");
+setValve(NVALVE,OPEN);
+setPump(NPUMP,OPEN);
+  }
+  if(button2.isReleased()){
+    DEBUG_SERIAL.println("The button 2 is released");
+setValve(NVALVE,CLOSE);
+setPump(NPUMP,CLOSE);
+  }
+  if(button3.isPressed()){
+    DEBUG_SERIAL.println("The button 3 is pressed");
+setValve(EVALVE,OPEN);
+  }
+  if(button3.isReleased()){
+    DEBUG_SERIAL.println("The button 3 is released");
+    setValve(EVALVE,CLOSE);
   }
 
-
-  if (button2 == 0) {
-    digitalWrite(5, HIGH);
-  }
-  if (button2 == 1) {
-    digitalWrite(5, LOW);
-
-  }
-
-  if (button3 == 0) {
-    digitalWrite(4, HIGH);
-    analogWrite(6, 255);
-  }
-  if (button3 == 1) {
-    digitalWrite(4, LOW);
-    analogWrite(6, 0);
-
-  }
-  if (button4 == 0) {
-    emergencyVent();
-
-    }
-
-  }
-
+}
 

@@ -1,6 +1,11 @@
 #include "pneumaticslib.h"
+#include <ezButton.h>
+
+ 
 void setup() {
   initializePins();
+ 
+  
   
   
 }
@@ -21,4 +26,5 @@ if (newData == true) {
         act_on_input();
         newData = false;    
 }
+
 }
