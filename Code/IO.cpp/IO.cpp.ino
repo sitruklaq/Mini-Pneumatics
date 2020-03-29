@@ -1,11 +1,17 @@
 #include "pneumaticslib.h"
 void setup() {
   initializePins();
+  
+  
 }
 
 void loop() {
+  
 buttonRead();
 pressureControl();
+if (pressure>100 || pressure<-80){
+  emergencyVent();
+}
 recvWithStartEndMarkers();
 if (newData == true) {
         strcpy(tempChars, receivedChars);
@@ -13,6 +19,6 @@ if (newData == true) {
             //   because strtok() used in parseData() replaces the commas with \0
         parseData();
         act_on_input();
-        newData = false;
- }
+        newData = false;    
+}
 }

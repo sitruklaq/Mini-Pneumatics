@@ -16,7 +16,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
-   sodipodi:docname="layout.svg">
+   sodipodi:docname="layout.svg"
+   inkscape:export-filename="/Users/kurtislaqua/Documents/GitHub/Mini-Pneumatics/Images/layout.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
   <defs
      id="defs2">
     <linearGradient
@@ -49,8 +52,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="490.57121"
-     inkscape:cy="896.80005"
+     inkscape:cx="453.42835"
+     inkscape:cy="862.51434"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -921,19 +924,19 @@ AACgb/4PD5h+nHK11E8AAAAASUVORK5CYII=
          style="stroke-width:0.26458332">Power Jack</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="120.00402"
-       y="0.86536336"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="133.81905"
+       y="-5.1822557"
        id="text832"><tspan
          sodipodi:role="line"
          id="tspan830"
-         x="120.00402"
-         y="0.86536336"
-         style="stroke-width:0.26458332">Powermode </tspan><tspan
+         x="118.87009"
+         y="-5.1822557"
+         style="stroke-width:0.26458332;text-anchor:middle;text-align:center;">Powermode </tspan><tspan
          sodipodi:role="line"
-         x="120.00402"
-         y="7.9209189"
-         style="stroke-width:0.26458332"
+         x="118.87009"
+         y="1.8732998"
+         style="stroke-width:0.26458332;text-anchor:middle;text-align:center;"
          id="tspan834">Switch</tspan></text>
     <text
        xml:space="preserve"
@@ -1110,5 +1113,11 @@ AACgb/4PD5h+nHK11E8AAAAASUVORK5CYII=
        d="m 84.666666,132.76934 21.166664,-5.48065"
        id="path920"
        inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 133.04762,3.6904758 2.64583,9.2604162"
+       id="path941"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
